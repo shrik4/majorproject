@@ -1,0 +1,9 @@
+flask
+flask-cors
+google-generativeai
+python-dotenv
+pmongo
+bcrypt
+tokenizers
+PyJWT
+pandas

@@ -15,17 +15,8 @@ const ChatbotPage: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
-  // Sample responses
-  const botResponses = [
-    "I can help you find locations on campus. Just ask me about any building or facility.",
-    "Need help with academic information? I can assist with course details, schedules, and more.",
-    "If you're looking for a specific department or faculty member, I can point you in the right direction.",
-    "The main library is located in the center of campus. It's open from 8 AM to 10 PM on weekdays.",
-    "The cafeteria offers a variety of meal options. The lunch hours are from 11 AM to 2 PM.",
-    "Student services is located in Building C. They can help with ID cards, enrollment issues, and general inquiries.",
-    "I don't have that information right now, but I'm constantly learning. Please check back later!",
-  ];
-  
+  const CHATBOT_API_URL = 'http://localhost:8000/ask';
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -43,12 +34,31 @@ const ChatbotPage: React.FC = () => {
     setInput('');
     setIsTyping(true);
     
-    // Simulate bot thinking
-    setTimeout(() => {
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      setMessages(prev => [...prev, { text: randomResponse, isBot: true }]);
+    // Send query to chatbot API
+    fetch(CHATBOT_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: JSON.stringify({ query: input })
+    })
+    .then(async response => {
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to get response from chatbot');
+      }
+      return data;
+    })
+    .then(data => {
+      setMessages(prev => [...prev, { text: data.response, isBot: true }]);
       setIsTyping(false);
-    }, 1000);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      setMessages(prev => [...prev, { text: error.message || "I'm having trouble connecting to my brain right now. Please try again later!", isBot: true }]);
+      setIsTyping(false);
+    });
   };
 
   return (

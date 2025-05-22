@@ -43,12 +43,32 @@ const SignupPage: React.FC = () => {
     
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    // API call to backend
+    fetch('http://localhost:8000/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ fullName, email, password }),
+    })
+    .then(response => {
       setIsLoading(false);
-      toast.success('Account created successfully!');
+      if (response.ok) {
+        return response.json();
+      } else {
+        // Try to parse error message from backend
+        return response.json().then(err => { throw new Error(err.error || 'Signup failed') });
+      }
+    })
+    .then(data => {
+      toast.success(data.message || 'Account created successfully!');
       navigate('/login');
-    }, 1000);
+    })
+    .catch(error => {
+      setIsLoading(false);
+      toast.error(error.message || 'An error occurred during signup.');
+      console.error('Signup error:', error);
+    });
   };
 
   return (
