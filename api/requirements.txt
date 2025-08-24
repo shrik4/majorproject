@@ -1,0 +1,6 @@
+Flask
+Flask-Cors
+
+Werkzeug
+PyJWT
+firebase-admin
