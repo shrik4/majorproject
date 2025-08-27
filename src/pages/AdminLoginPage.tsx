@@ -107,13 +107,13 @@ const AdminLoginPage: React.FC = () => {
             </>
           ) : (
             <>Don't have an account?{' '}
-              <button
+              {/* <button
                 type="button"
                 onClick={() => setIsRegistering(true)}
                 className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none"
               >
                 Register
-              </button>
+              </button> */}
             </>
           )}
         </p>

@@ -9,10 +9,10 @@ interface InfoCardProps {
   description: string;
   icon: React.ReactNode;
   onClick?: () => void;
-  gradientClass?: string;
+  backgroundImage?: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ title, description, icon, onClick, gradientClass = "bg-gradient-campus" }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ title, description, icon, onClick, backgroundImage }) => {
   return (
     <Card 
       className="card-hover overflow-hidden bg-white border border-gray-100 shadow-sm group h-full hover-gradient-shine cursor-pointer transition-all duration-300 hover:shadow-md hover:-translate-y-1"
@@ -25,7 +25,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, description, icon, onClick, 
         }
       }}
     >
-      <CardHeader className={`pb-2 ${gradientClass} text-white transition-colors duration-300`}>
+      <CardHeader className="pb-2 text-white transition-colors duration-300" style={backgroundImage ? { backgroundImage: backgroundImage, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundImage: 'url(/background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="feature-icon-container bg-white/20 text-white">
           {icon}
         </div>

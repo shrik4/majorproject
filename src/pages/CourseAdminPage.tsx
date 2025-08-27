@@ -22,7 +22,7 @@ const CourseAdminPage: React.FC = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch('http://localhost:5001/courses');
+      const response = await fetch('http://localhost:5004/courses');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -38,7 +38,7 @@ const CourseAdminPage: React.FC = () => {
   const handleAddCourse = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5001/courses', {
+      const response = await fetch('http://localhost:5004/courses', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const CourseAdminPage: React.FC = () => {
     e.preventDefault();
     if (!editingCourse || !editingCourse.id) return;
     try {
-      const response = await fetch(`http://localhost:5001/courses/${editingCourse.id}`, {
+      const response = await fetch(`http://localhost:5004/courses/${editingCourse.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const CourseAdminPage: React.FC = () => {
 
   const handleDeleteCourse = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:5001/courses/${id}`, {
+      const response = await fetch(`http://localhost:5004/courses/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {

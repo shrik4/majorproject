@@ -15,25 +15,28 @@ const HomePage: React.FC = () => {
       title: 'Study Materials',
       description: 'Access previous years question papers to help you prepare for exams and assessments.',
       icon: <FileText size={24} />,
-      onClick: () => navigate('/question-papers')
+      onClick: () => navigate('/question-papers'),
+      backgroundImage: 'url(/study%20material.png)'
     },
         {
           title: 'Events',
           description: 'Access information about live events, announcements, and important notices.',
           icon: <Users size={24} />,
           onClick: () => navigate('/events'),
+          backgroundImage: 'url(/events.png)'
         },
     {
       title: 'Courses',
       description: 'Explore a variety of courses, including YouTube tutorials and recommended study materials.',
       icon: <BookOpen size={24} />,
       onClick: () => navigate('/courses'),
+      backgroundImage: 'url(/course.png)',
     },
     {
       title: 'Other Information',
       description: 'Access additional campus resources, events, announcements, and important notices.',
       icon: <BookOpen size={24} />,
-      onClick: () => alert('Other Information feature coming soon!')
+      onClick: () => navigate('/other-information')
     }
   ];
 
@@ -44,19 +47,16 @@ const HomePage: React.FC = () => {
         
         <main className="flex-grow">
           {/* Hero Section */}
-          <section className="hero-gradient text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden">
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute w-full h-full bg-campus-800 opacity-20"></div>
-              <div className="absolute -bottom-16 -right-16 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-              <div className="absolute top-32 -left-16 w-72 h-72 bg-campus-300/10 rounded-full blur-3xl"></div>
-            </div>
-            <div className="container relative px-4 md:px-6 z-10">
+          <section className="text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden" style={{ backgroundImage: 'url("/campus new-3.webp")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              <div className="absolute inset-0 bg-black opacity-50"></div>
+              <div className="container relative px-4 md:px-6 z-10">
               <div className="max-w-4xl mx-auto text-center">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in leading-tight">
-                  Campus Navigation & Information System
-                </h1>
+                    Campus Information & Navigation System
+                  </h1>
                 <p className="text-lg md:text-xl mb-8 text-gray-100 animate-fade-in max-w-2xl mx-auto" style={{ animationDelay: '100ms' }}>
-                  Your one-stop solution for navigating campus resources and accessing vital information
+                  Your one-stop solution for navigating campus resources and
+            accessing vital information. 
                 </p>
                 <div className="flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
                   <Button 
@@ -70,13 +70,7 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Wave Divider */}
-            <div className="absolute bottom-0 left-0 right-0">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto">
-                <path fill="#f9fafb" fillOpacity="1" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
-              </svg>
-            </div>
+
           </section>
           
           {/* Quick Access Section */}
@@ -88,14 +82,7 @@ const HomePage: React.FC = () => {
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Quick Access</h2>
                     <p className="text-gray-600 mt-2">Navigate to essential campus resources</p>
                   </div>
-                  <Button 
-                    variant="outline" 
-                    className="border-campus-200 text-campus-700 hover:bg-campus-50"
-                    onClick={() => navigate('/navigation')}
-                  >
-                    <span>View all resources</span>
-                    <ArrowRight size={16} className="ml-2" />
-                  </Button>
+
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -106,6 +93,7 @@ const HomePage: React.FC = () => {
                         description={card.description}
                         icon={card.icon}
                         onClick={card.onClick}
+                        backgroundImage={card.backgroundImage}
                       />
                     </div>
                   ))}
@@ -155,9 +143,9 @@ const HomePage: React.FC = () => {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="mb-4 md:mb-0">
-                <p className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-campus-600 to-campus-800">CNIAS</p>
+                <p className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-campus-600 to-campus-800">Campus Connect</p>
                 <p className="text-sm text-gray-600 mt-1">
-                  © 2025 Campus Navigation System. All rights reserved.
+                  © 2025 Campus Information & Navigation System. All rights reserved.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">

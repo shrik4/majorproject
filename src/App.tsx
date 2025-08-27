@@ -21,6 +21,7 @@ import EventAdminPage from "./pages/EventAdminPage";
 import CourseAdminPage from "./pages/CourseAdminPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AuthCheckAdmin from "./components/AuthCheckAdmin";
+import OtherInformationPage from "./pages/OtherInformationPage";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/events" element={<EventsPage />} />
           <Route path="/courses" element={<CoursePage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/other-information" element={<OtherInformationPage />} />
 
           <Route element={<AuthCheckAdmin />}>
             <Route path="/admin/chatbot-qp" element={<ChatbotAdminPage />} />
