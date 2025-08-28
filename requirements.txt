@@ -22,3 +22,6 @@ werkzeug
 flask-cors
 pytube
 requests
+Flask
+flask-cors
+Werkzeug
