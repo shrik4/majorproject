@@ -13,9 +13,9 @@ const HomePage: React.FC = () => {
   const infoCards = [
     {
       title: 'Study Materials',
-      description: 'Access previous years question papers to help you prepare for exams and assessments.',
+      description: 'Access study materials and resources to help you with your courses.',
       icon: <FileText size={24} />,
-      onClick: () => navigate('/question-papers'),
+      onClick: () => navigate('/study-materials'),
       backgroundImage: 'url(/study%20material.png)'
     },
         {

@@ -6,11 +6,11 @@ import time
 # Define the paths to each backend's main script
 backend_paths = {
     "api": os.path.join("api", "run.py"),
-    "backend": os.path.join("backend", "main.py"),
     "campus_chatbot": os.path.join("campus_chatbot", "app.py"),
     "live_events_backend": os.path.join("live_events_backend", "app.py"),
     "auth": os.path.join("auth", "app.py"),
-    "course_backend": os.path.join("course_backend", "app.py")
+    "course_backend": os.path.join("course_backend", "app.py"),
+    "study_materials_backend": os.path.join("study_materials_backend", "app.py")
 }
 
 processes = []

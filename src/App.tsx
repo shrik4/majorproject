@@ -18,6 +18,7 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import ChatbotAdminPage from "./pages/ChatbotAdminPage";
 import StudyMaterialAdminPage from "./pages/StudyMaterialAdminPage";
 import EventAdminPage from "./pages/EventAdminPage";
+import StudyMaterialsPage from "./pages/StudyMaterialsPage";
 import CourseAdminPage from "./pages/CourseAdminPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AuthCheckAdmin from "./components/AuthCheckAdmin";
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/courses" element={<CoursePage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/other-information" element={<OtherInformationPage />} />
+          <Route path="/study-materials" element={<StudyMaterialsPage />} />
 
           <Route element={<AuthCheckAdmin />}>
             <Route path="/admin/chatbot-qp" element={<ChatbotAdminPage />} />

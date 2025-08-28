@@ -26,7 +26,7 @@ const StudyMaterialAdmin: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const API_BASE_URL = 'http://localhost:8001/api'; // Backend API URL
+  const API_BASE_URL = 'http://localhost:5005/api'; // Study Material Backend API URL
 
   useEffect(() => {
     fetchFolders();
@@ -39,6 +39,45 @@ const StudyMaterialAdmin: React.FC = () => {
       setFiles([]);
     }
   }, [selectedFolder]);
+
+  const handleDeleteFolder = async (folderId: number) => {
+    if (!window.confirm('Are you sure you want to delete this folder? All files inside will be deleted.')) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await axios.delete(`${API_BASE_URL}/folders/${folderId}`);
+      toast.success('Folder deleted successfully!');
+      setSelectedFolder(null);
+      fetchFolders();
+    } catch (error) {
+      console.error('Error deleting folder:', error);
+      toast.error('Failed to delete folder.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteFile = async (folderName: string, filename: string) => {
+    if (!window.confirm('Are you sure you want to delete this file?')) {
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await axios.delete(`${API_BASE_URL}/files/${folderName}/${filename}`);
+      toast.success('File deleted successfully!');
+      if (selectedFolder) {
+        fetchFiles(selectedFolder.id);
+      }
+    } catch (error) {
+      console.error('Error deleting file:', error);
+      toast.error('Failed to delete file.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const fetchFolders = async () => {
     setIsLoading(true);
@@ -181,6 +220,23 @@ const StudyMaterialAdmin: React.FC = () => {
             </option>
           ))}
         </select>
+        <div className="mt-2">
+          {folders.map((folder) => (
+            <div key={folder.id} className="flex items-center justify-between p-2 border-b">
+              <div>
+                <h4 className="font-medium">{folder.name}</h4>
+                {folder.description && <p className="text-sm text-gray-500">{folder.description}</p>}
+              </div>
+              <button
+                onClick={() => handleDeleteFolder(folder.id)}
+                className="text-red-500 hover:text-red-700 px-2 py-1 text-sm"
+                disabled={isLoading}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* File Upload */}
@@ -211,13 +267,22 @@ const StudyMaterialAdmin: React.FC = () => {
             {files.map((file) => (
               <li key={file.id} className="flex justify-between items-center py-2 border-b last:border-b-0">
                 <span>{file.orig_name} ({Math.round(file.size / 1024)} KB)</span>
-                <button
-                  onClick={() => handleFileDownload(selectedFolder.name, file.filename, file.orig_name)}
-                  className="bg-purple-500 text-white px-3 py-1 rounded-md text-sm hover:bg-purple-600 transition-colors"
-                  disabled={isLoading}
-                >
-                  Download
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleFileDownload(selectedFolder.name, file.filename, file.orig_name)}
+                    className="bg-purple-500 text-white px-3 py-1 rounded-md text-sm hover:bg-purple-600 transition-colors"
+                    disabled={isLoading}
+                  >
+                    Download
+                  </button>
+                  <button
+                    onClick={() => handleDeleteFile(selectedFolder.name, file.filename)}
+                    className="bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600 transition-colors"
+                    disabled={isLoading}
+                  >
+                    Delete
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
