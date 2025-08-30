@@ -1,42 +1,53 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import AuthCheck from '@/components/AuthCheck';
 import InfoCard from '@/components/InfoCard';
 import { Button } from "@/components/ui/button";
 import { BookOpen, Users, Briefcase, FileText, ArrowRight, MapPin, MessageSquare, School } from 'lucide-react';
+import { useThrottledNavigation } from '@/hooks/use-throttled-navigation';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const throttledNavigate = useThrottledNavigation(navigate);
+  const [isNavigating, setIsNavigating] = useState(false);
+  
+  const handleNavigation = (path: string) => {
+    if (isNavigating) return;
+    setIsNavigating(true);
+    throttledNavigate(path);
+    // Reset navigating state after delay
+    setTimeout(() => setIsNavigating(false), 1000);
+  };
   
   const infoCards = [
     {
       title: 'Study Materials',
       description: 'Access study materials and resources to help you with your courses.',
       icon: <FileText size={24} />,
-      onClick: () => navigate('/study-materials'),
+      onClick: () => handleNavigation('/study-materials'),
       backgroundImage: 'url(/study%20material.png)'
     },
         {
           title: 'Events',
           description: 'Access information about live events, announcements, and important notices.',
           icon: <Users size={24} />,
-          onClick: () => navigate('/events'),
+          onClick: () => handleNavigation('/events'),
           backgroundImage: 'url(/events.png)'
         },
     {
       title: 'Courses',
       description: 'Explore a variety of courses, including YouTube tutorials and recommended study materials.',
       icon: <BookOpen size={24} />,
-      onClick: () => navigate('/courses'),
+      onClick: () => handleNavigation('/courses'),
       backgroundImage: 'url(/course.png)',
     },
     {
       title: 'Other Information',
       description: 'Access additional campus resources, events, announcements, and important notices.',
       icon: <BookOpen size={24} />,
-      onClick: () => navigate('/other-information')
+      onClick: () => handleNavigation('/other-information')
     }
   ];
 

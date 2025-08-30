@@ -1,26 +1,175 @@
 import React from 'react';
+import Navbar from '@/components/Navbar';
+import AuthCheck from '@/components/AuthCheck';
+import InfoCard from '@/components/InfoCard';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import { 
+  Building,
+  Clock, 
+  BookOpen,
+  Coffee, 
+  Bus, 
+  Phone,
+  Stethoscope,
+  GraduationCap,
+  Map
+} from 'lucide-react';
+
+// Add styles to index.css if not already present
+const styles = `
+  .feature-card {
+    transition: all 0.3s ease;
+    background: white;
+    background-size: 400% 400%;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .feature-card:hover .learn-more-text {
+    color: var(--color);
+  }
+
+  .feature-card:hover .learn-more-arrow {
+    transform: translateX(4px);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
 
 const OtherInformationPage: React.FC = () => {
+  const navigate = useNavigate();
+  const features = [
+    {
+      title: "Exam Hall Finder",
+      description: "Find your exam hall location and seating arrangements easily.",
+      icon: <Map size={24} />,
+      backgroundImage: "url(/background.png)",
+      onClick: () => navigate('/exam-hall-finder')
+    },
+    {
+      title: "Campus Timings",
+      description: "Access information about college hours, library timings, and lab schedules.",
+      icon: <Clock size={24} />,
+      backgroundImage: "url(/background.png)",
+      onClick: () => {}
+    },
+    {
+      title: "Campus Facilities",
+      description: "Find information about Wi-Fi zones, study areas, labs, and other facilities.",
+      icon: <Building size={24} />,
+      backgroundImage: "url(/background.png)",
+      onClick: () => {}
+    },
+    {
+      title: "Student Services",
+      description: "Learn about various student support services and resources available.",
+      icon: <GraduationCap size={24} />,
+      backgroundImage: "url(/background.png)",
+      onClick: () => {}
+    },
+    {
+      title: "Campus Amenities",
+      description: "Discover cafeterias, shops, printing services, and other amenities.",
+      icon: <Coffee size={24} />,
+      backgroundImage: "url(/background.png)",
+      onClick: () => {}
+    },
+    {
+      title: "Transportation",
+      description: "Get details about college bus services and parking facilities.",
+      icon: <Bus size={24} />,
+      backgroundImage: "url(/background.png)",
+      onClick: () => {}
+    },
+    {
+      title: "Emergency Contacts",
+      description: "Security: 100\nMedical Emergency: 102\nCampus Helpline: (555) 0123-4567",
+      icon: <Phone className="w-8 h-8 text-red-500" />,
+      color: "border-red-500"
+    },
+    {
+      title: "Medical Facilities",
+      description: "On-campus Medical Center, First Aid Stations, Ambulance Service, Mental Health Support",
+      icon: <Stethoscope className="w-8 h-8 text-pink-500" />,
+      color: "border-pink-500"
+    },
+    {
+      title: "Academic Support",
+      description: "Learning Resource Center, Writing Center, Career Counseling, Academic Advisors",
+      icon: <BookOpen className="w-8 h-8 text-teal-500" />,
+      color: "border-teal-500"
+    }
+  ];
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Other Information</h1>
-      <p className="text-lg">This page will display additional features and information.</p>
-      {/* Add your extra features here */}
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Feature 1</h2>
-          <p>Description of Feature 1.</p>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Feature 2</h2>
-          <p>Description of Feature 2.</p>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Feature 3</h2>
-          <p>Description of Feature 3.</p>
-        </div>
+    <AuthCheck>
+      <div className="min-h-screen flex flex-col bg-gray-50">
+        <Navbar />
+        <main className="flex-grow">
+          {/* Hero Section */}
+          <section className="text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden" 
+            style={{ backgroundImage: 'url("/background.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+            <div className="container relative px-4 md:px-6 z-10">
+              <div className="max-w-4xl mx-auto text-center">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in leading-tight">
+                  Campus Information Hub
+                </h1>
+                <p className="text-lg md:text-xl mb-8 text-gray-100 animate-fade-in max-w-2xl mx-auto" 
+                  style={{ animationDelay: '100ms' }}>
+                  Everything you need to know about campus facilities and services
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Features Section */}
+          <section className="py-10 bg-gray-50">
+            <div className="container px-4 md:px-6">
+              <div className="max-w-7xl mx-auto">
+                <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+                  <div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Campus Resources</h2>
+                    <p className="text-gray-600 mt-2">Access important information about campus facilities</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {features.map((feature, index) => (
+                    <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100 + 300}ms` }}>
+                      <InfoCard
+                        title={feature.title}
+                        description={feature.description}
+                        icon={feature.icon}
+                        onClick={feature.onClick}
+                        backgroundImage={feature.backgroundImage}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
       </div>
-    </div>
+    </AuthCheck>
   );
 };
 

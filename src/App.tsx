@@ -23,6 +23,8 @@ import CourseAdminPage from "./pages/CourseAdminPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AuthCheckAdmin from "./components/AuthCheckAdmin";
 import OtherInformationPage from "./pages/OtherInformationPage";
+import ExamHallAdminPage from "./pages/ExamHallAdminPage";
+import ExamHallFinderPage from "./pages/ExamHallFinderPage";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +46,7 @@ const App = () => (
           <Route path="/courses" element={<CoursePage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/other-information" element={<OtherInformationPage />} />
+          <Route path="/exam-hall-finder" element={<ExamHallFinderPage />} />
           <Route path="/study-materials" element={<StudyMaterialsPage />} />
 
           <Route element={<AuthCheckAdmin />}>
@@ -51,6 +54,7 @@ const App = () => (
             <Route path="/admin/study-materials" element={<StudyMaterialAdminPage />} />
             <Route path="/admin/events" element={<EventAdminPage />} />
             <Route path="/admin/courses" element={<CourseAdminPage />} />
+            <Route path="/admin/exam-hall" element={<ExamHallAdminPage />} />
             <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />

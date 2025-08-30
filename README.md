@@ -1,6 +1,6 @@
-# Campus Navigation Navigator
+# Campus Connect
 
-A comprehensive campus navigation system featuring an AI chatbot, study materials management, course information, and live events tracking.
+A comprehensive campus management system featuring an AI chatbot, study materials management, course information, and live events tracking.
 
 ## Features
 
@@ -32,6 +32,7 @@ The project is divided into three main parts:
 - **`campus_chatbot`:** A Python backend that provides chatbot functionality.
 - **`course_backend`:** A Python backend for course-related services.
 - **`live_events_backend`:** A Python backend for live events services.
+- **`exam_hall_backend`:** A Python backend for exam hall management.
 
 ## Setup Instructions
 
@@ -71,6 +72,7 @@ The project is divided into three main parts:
    Or run a specific backend:
    ```bash
    python start_all_backends.py api
+   python start_all_backends.py exam_hall_backend
    ```
 
 ## Development Guide
@@ -104,6 +106,7 @@ The project runs multiple services on different ports:
 - Course Backend: 5003
 - Live Events Backend: 5004
 - Study Materials Backend: 5005
+- Exam Hall Backend: 5006
 
 ## Contributing
 

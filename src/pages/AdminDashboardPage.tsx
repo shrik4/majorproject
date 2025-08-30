@@ -73,6 +73,17 @@ const AdminDashboardPage: React.FC = () => {
                 <Link to="/admin/courses" className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">Manage Courses</Link>
               </div>
             </div>
+
+            {/* Exam Hall Administration */}
+            <div className="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between">
+              <div>
+                <h2 className="text-xl font-semibold mb-4 text-orange-700">Exam Hall Administration</h2>
+                <p className="text-gray-600">Upload and manage exam hall allocations, seating arrangements, and student exam details.</p>
+              </div>
+              <div className="mt-4">
+                <Link to="/admin/exam-hall" className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Manage Exam Halls</Link>
+              </div>
+            </div>
           </div>
 
         </main>
