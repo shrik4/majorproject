@@ -25,11 +25,17 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, description, icon, onClick, 
         }
       }}
     >
-      <CardHeader className="pb-2 text-white transition-colors duration-300" style={backgroundImage ? { backgroundImage: backgroundImage, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundImage: 'url(/background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="feature-icon-container bg-white/20 text-white">
-          {icon}
+      <CardHeader 
+        className="relative pb-2 text-white transition-colors duration-300"
+        style={backgroundImage ? { backgroundImage: backgroundImage, backgroundSize: 'cover', backgroundPosition: 'center' } : { backgroundImage: 'url(/background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-50" />
+        <div className="relative">
+          <div className="feature-icon-container bg-white/20 text-white">
+            {icon}
+          </div>
+          <CardTitle className="text-xl">{title}</CardTitle>
         </div>
-        <CardTitle className="text-xl">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription className="text-sm">{description}</CardDescription>

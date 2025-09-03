@@ -25,3 +25,5 @@ requests
 Flask
 flask-cors
 Werkzeug
+fastapi
+httpx

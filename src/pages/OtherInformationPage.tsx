@@ -60,7 +60,7 @@ const OtherInformationPage: React.FC = () => {
       title: "Exam Hall Finder",
       description: "Find your exam hall location and seating arrangements easily.",
       icon: <Map size={24} />,
-      backgroundImage: "url(/background.png)",
+      backgroundImage: "url('/exam hall finder.png')",
       onClick: () => navigate('/exam-hall-finder')
     },
     {
@@ -125,16 +125,16 @@ const OtherInformationPage: React.FC = () => {
         <main className="flex-grow">
           {/* Hero Section */}
           <section className="text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden" 
-            style={{ backgroundImage: 'url("/background.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            style={{ backgroundImage: 'url("\campus hub.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <div className="container relative px-4 md:px-6 z-10">
               <div className="max-w-4xl mx-auto text-center">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in leading-tight">
-                  Campus Information Hub
+                  Campus Hub
                 </h1>
                 <p className="text-lg md:text-xl mb-8 text-gray-100 animate-fade-in max-w-2xl mx-auto" 
                   style={{ animationDelay: '100ms' }}>
-                  Everything you need to know about campus facilities and services
+                  campus tools and services
                 </p>
               </div>
             </div>
