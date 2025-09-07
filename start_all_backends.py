@@ -11,7 +11,8 @@ backend_paths = {
     "auth": os.path.join("auth", "app.py"),
     "course_backend": os.path.join("course_backend", "app.py"),
     "study_materials_backend": os.path.join("study_materials_backend", "app.py"),
-    "exam_hall_backend": os.path.join("exam_hall_backend", "app.py")
+    "exam_hall_backend": os.path.join("exam_hall_backend", "app.py"),
+    "resume_backend": os.path.join("resume_backend", "server.py")
 }
 
 processes = []
