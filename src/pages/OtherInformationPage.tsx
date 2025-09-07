@@ -64,11 +64,11 @@ const OtherInformationPage: React.FC = () => {
       onClick: () => navigate('/exam-hall-finder')
     },
     {
-      title: "Campus Timings",
-      description: "Access information about college hours, library timings, and lab schedules.",
-      icon: <Clock size={24} />,
-      backgroundImage: "url(/background.png)",
-      onClick: () => {}
+      title: "Resume Builder",
+      description: "Create and customize your professional resume with our easy-to-use builder.",
+      icon: <BookOpen size={24} />,
+      backgroundImage: "url('/resume builder.png')",
+      onClick: () => navigate('/resume-builder')
     },
     {
       title: "Campus Facilities",

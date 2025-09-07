@@ -43,19 +43,14 @@ const Navbar: React.FC = () => {
             <Link to="/navigation" className={`nav-link ${isActive('/navigation')}`}>Campus Navigation</Link>
             <Link to="/chatbot" className={`nav-link ${isActive('/chatbot')}`}>Campus Assistant</Link>
             <Link to="/admin-dashboard" className={`nav-link ${isActive('/admin-dashboard')}`}>Admin Dashboard</Link>
-            <div className="pl-4 border-l border-gray-200 ml-4">
+            <div className="pl-4 border-l border-gray-200 ml-4 flex items-center space-x-2">
               <Button 
-                onClick={() => {
-                  localStorage.clear();
-                  navigate('/login');
-                  window.location.reload();
-                }}
-                variant="ghost" 
-                className="flex items-center gap-2 hover:bg-campus-50"
+                onClick={() => navigate('/user-profile')}
+                className="flex items-center justify-center w-10 h-10 p-0 rounded-md bg-blue-500 hover:bg-blue-600 text-white"
               >
                 <User size={18} />
-                <span>Logout</span>
               </Button>
+
             </div>
           </div>
           
@@ -101,17 +96,16 @@ const Navbar: React.FC = () => {
             <div className="pt-2 mt-2 border-t border-gray-100">
               <Button 
                 onClick={() => {
-                  localStorage.clear();
-                  navigate('/login');
+                  navigate('/user-profile');
                   setIsOpen(false);
-                  window.location.reload();
-                }} 
+                }}
                 variant="ghost" 
                 className="w-full justify-start px-3 py-2 text-base font-medium text-gray-700 hover:text-primary flex items-center gap-2"
               >
                 <User size={18} />
-                <span>Logout</span>
+                <span>Profile</span>
               </Button>
+
             </div>
           </div>
         </div>

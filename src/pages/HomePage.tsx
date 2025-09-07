@@ -58,7 +58,11 @@ const HomePage: React.FC = () => {
         
         <main className="flex-grow">
           {/* Hero Section */}
-          <section className="text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden" style={{ backgroundImage: 'url("/campus new-3.webp")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <section className="text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden">
+            <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover">
+              <source src="/YENEPOYA.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
               <div className="absolute inset-0 bg-black opacity-50"></div>
               <div className="container relative px-4 md:px-6 z-10">
               <div className="max-w-4xl mx-auto text-center">
