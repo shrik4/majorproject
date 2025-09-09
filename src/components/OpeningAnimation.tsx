@@ -29,8 +29,8 @@ const ParticleCanvas = ({ theme }) => {
     const mouseRef = useRef({ x: null, y: null });
     const animationFrameId = useRef(null);
 
-    const particleColor = theme === 'dusk' ? 'rgba(255, 237, 213, 0.7)' : 'rgba(255, 255, 255, 0.5)';
-    const lineColor = theme === 'dusk' ? 'rgba(255, 237, 213, 0.5)' : 'rgba(255, 255, 255, 0.5)';
+    const particleColor = 'rgba(255, 255, 255, 0.5)';
+    const lineColor = 'rgba(255, 255, 255, 0.5)';
 
 
     const initCanvas = useCallback(() => {
@@ -137,12 +137,7 @@ const styles = `
     perspective: 1000px;
   }
 
-  /* Dusk Theme */
-  .animation-container.dusk {
-    background: linear-gradient(180deg, #2c3e50, #fd746c, #ff8c42);
-    --logo-color-1: #FFD3B5;
-    --logo-color-2: #FD746C;
-  }
+
   
   .content-wrapper {
     transition: transform 0.1s ease-out;
@@ -273,14 +268,9 @@ const OpeningAnimation = ({ onAnimationComplete }) => {
   const text = "Campus Connect.";
   const isMounted = useRef(true);
 
-  // Effect to set the theme based on the current time
+  // Effect to set the theme to night (always)
   useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour >= 5 && hour < 18) {
-        setTheme('dusk');
-    } else {
-        setTheme('night');
-    }
+    setTheme('night');
   }, []);
 
   const [outroDelays] = useState(() =>

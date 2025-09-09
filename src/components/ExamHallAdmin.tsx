@@ -82,28 +82,17 @@ const ExamHallAdmin: React.FC = () => {
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4">Upload Exam Hall Data</h2>
         <div className="mb-6 p-4 bg-blue-50 rounded-lg">
-          <h3 className="text-md font-medium text-blue-800 mb-2">CSV File Requirements:</h3>
+          <h3 className="text-md font-medium text-blue-800 mb-2">File Requirements:</h3>
           <ul className="list-disc list-inside text-sm text-blue-700 space-y-1">
-            <li>File must be in CSV format</li>
-            <li>Required columns: usn, name, block, room_number, seat_number, semester</li>
-            <li>Example row: 1RV21CS001,John Doe,A,101,1,3</li>
+            <li>File must be in CSV, XLSX, or XLS format</li>
+            <li>Required columns: SEAT NO., USN, STUDENT NAME, YEAR, CLASS, FLOOR</li>
+            <li>Example row: 1,4DM22AI001,ABDUL AHAD KHAN,Final Year,GLH-01,G </li>
             <li>USN can be in any format (caps or small)</li>
-            <li>Block should be a single letter (e.g., A, B, C)</li>
-            <li>Room number should be just the number (e.g., 101)</li>
-            <li>Seat number should be a number</li>
-            <li>Semester should be a number</li>
+            <li>YEAR should be 'Final Year' or similar</li>
+            <li>CLASS should be like 'GLH-01'</li>
+            <li>FLOOR should be 'G', '1ST', '2ND' etc.</li>
           </ul>
-          <div className="mt-4">
-            <a
-              href="http://localhost:5006/download-template"
-              className="inline-flex items-center text-blue-600 hover:text-blue-800"
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Download Template CSV
-            </a>
-          </div>
+
         </div>
         <form onSubmit={handleUpload} className="space-y-4">
           <div>
@@ -113,7 +102,7 @@ const ExamHallAdmin: React.FC = () => {
             <div className="mt-1 flex items-center">
               <input
                 type="file"
-                accept=".csv"
+                accept=".csv, .xlsx, .xls"
                 onChange={handleFileChange}
                 className="block w-full text-sm text-gray-500
                   file:mr-4 file:py-2 file:px-4
@@ -136,7 +125,7 @@ const ExamHallAdmin: React.FC = () => {
                 : 'bg-blue-600 hover:bg-blue-700'
             }`}
           >
-            {uploading ? 'Uploading...' : 'Upload CSV'}
+            {uploading ? 'Uploading...' : 'Upload File'}
           </button>
         </form>
 
@@ -175,10 +164,10 @@ const ExamHallAdmin: React.FC = () => {
                   Name
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Block
+                  Class
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Room
+                  Floor
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Seat
@@ -198,13 +187,16 @@ const ExamHallAdmin: React.FC = () => {
                     {student.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Block {student.block}
+                    {student.class}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Room {student.room_number}
+                    {student.floor}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    Seat {student.seat_number || 'Not assigned'}
+                    {student.room}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {student.seat}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {student.semester}

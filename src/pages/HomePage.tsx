@@ -44,8 +44,8 @@ const HomePage: React.FC = () => {
       backgroundImage: 'url(/course.png)',
     },
     {
-      title: 'Other Information',
-      description: 'Access additional campus resources, events, announcements, and important notices.',
+      title: 'Campus Hub',
+      description: 'Access AI-powered tools for campus assistance, virtual tours, and intelligent information retrieval.',
       icon: <BookOpen size={24} />,
       onClick: () => handleNavigation('/other-information')
     }
@@ -165,18 +165,18 @@ const HomePage: React.FC = () => {
               </div>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
                 <div>
-                  <h4 className="font-medium text-gray-900 mb-2">Resources</h4>
+                  {/* <h4 className="font-medium text-gray-900 mb-2">Resources</h4>
                   <div className="grid gap-1">
                     <a href="#" className="text-sm text-gray-600 hover:text-campus-600">FAQs</a>
                     <a href="#" className="text-sm text-gray-600 hover:text-campus-600">Support</a>
                     <a href="#" className="text-sm text-gray-600 hover:text-campus-600">Contact</a>
-                  </div>
+                  </div> */}
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 mb-2">Legal</h4>
+                  {/* <h4 className="font-medium text-gray-900 mb-2">Legal</h4> */}
                   <div className="grid gap-1">
-                    <a href="#" className="text-sm text-gray-600 hover:text-campus-600">Privacy Policy</a>
-                    <a href="#" className="text-sm text-gray-600 hover:text-campus-600">Terms of Service</a>
+                    {/* <a href="#" className="text-sm text-gray-600 hover:text-campus-600">Privacy Policy</a>
+                    <a href="#" className="text-sm text-gray-600 hover:text-campus-600">Terms of Service</a> */}
                   </div>
                 </div>
               </div>

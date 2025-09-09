@@ -57,6 +57,11 @@ Campus Connect is a comprehensive campus management system that integrates multi
    - Student data processing
    - CSV file handling for exam data
 
+8. **Resume Backend (Port 3001)**
+   - Resume generation and management
+   - User data processing for resumes
+   - Template management
+
 ## Core Features
 
 ### 1. AI Chatbot System

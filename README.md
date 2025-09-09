@@ -104,9 +104,10 @@ The project runs multiple services on different ports:
 - Auth Backend: 5001
 - Campus Chatbot: 5002
 - Course Backend: 5003
-- Live Events Backend: 5004
+- Live Events Backend: 3002
 - Study Materials Backend: 5005
 - Exam Hall Backend: 5006
+- Resume Backend: 3001
 
 ## Contributing
 

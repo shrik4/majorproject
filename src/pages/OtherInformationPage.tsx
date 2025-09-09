@@ -1,9 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import AuthCheck from '@/components/AuthCheck';
 import InfoCard from '@/components/InfoCard';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
 import { 
   Building,
   Clock, 
@@ -71,51 +71,51 @@ const OtherInformationPage: React.FC = () => {
       onClick: () => navigate('/resume-builder')
     },
     {
-      title: "Campus Facilities",
-      description: "Find information about Wi-Fi zones, study areas, labs, and other facilities.",
+      title: "JobFindr",
+      description: "Explore job opportunities and career resources.",
       icon: <Building size={24} />,
-      backgroundImage: "url(/background.png)",
-      onClick: () => {}
+      backgroundImage: "url(/jobfinder.png)",
+      onClick: () => navigate('/job-search')
     },
-    {
-      title: "Student Services",
-      description: "Learn about various student support services and resources available.",
-      icon: <GraduationCap size={24} />,
-      backgroundImage: "url(/background.png)",
-      onClick: () => {}
-    },
-    {
-      title: "Campus Amenities",
-      description: "Discover cafeterias, shops, printing services, and other amenities.",
-      icon: <Coffee size={24} />,
-      backgroundImage: "url(/background.png)",
-      onClick: () => {}
-    },
-    {
-      title: "Transportation",
-      description: "Get details about college bus services and parking facilities.",
-      icon: <Bus size={24} />,
-      backgroundImage: "url(/background.png)",
-      onClick: () => {}
-    },
-    {
-      title: "Emergency Contacts",
-      description: "Security: 100\nMedical Emergency: 102\nCampus Helpline: (555) 0123-4567",
-      icon: <Phone className="w-8 h-8 text-red-500" />,
-      color: "border-red-500"
-    },
-    {
-      title: "Medical Facilities",
-      description: "On-campus Medical Center, First Aid Stations, Ambulance Service, Mental Health Support",
-      icon: <Stethoscope className="w-8 h-8 text-pink-500" />,
-      color: "border-pink-500"
-    },
-    {
-      title: "Academic Support",
-      description: "Learning Resource Center, Writing Center, Career Counseling, Academic Advisors",
-      icon: <BookOpen className="w-8 h-8 text-teal-500" />,
-      color: "border-teal-500"
-    }
+    // {
+    //   title: "Student Services",
+    //   description: "Learn about various student support services and resources available.",
+    //   icon: <GraduationCap size={24} />,
+    //   backgroundImage: "url(/background.png)",
+    //   onClick: () => {}
+    // },
+    // {
+    //   title: "Campus Amenities",
+    //   description: "Discover cafeterias, shops, printing services, and other amenities.",
+    //   icon: <Coffee size={24} />,
+    //   backgroundImage: "url(/background.png)",
+    //   onClick: () => {}
+    // },
+    // {
+    //   title: "Transportation",
+    //   description: "Get details about college bus services and parking facilities.",
+    //   icon: <Bus size={24} />,
+    //   backgroundImage: "url(/background.png)",
+    //   onClick: () => {}
+    // },
+    // {
+    //   title: "Emergency Contacts",
+    //   description: "Security: 100\nMedical Emergency: 102\nCampus Helpline: (555) 0123-4567",
+    //   icon: <Phone className="w-8 h-8 text-red-500" />,
+    //   color: "border-red-500"
+    // },
+    // {
+    //   title: "Medical Facilities",
+    //   description: "On-campus Medical Center, First Aid Stations, Ambulance Service, Mental Health Support",
+    //   icon: <Stethoscope className="w-8 h-8 text-pink-500" />,
+    //   color: "border-pink-500"
+    // },
+    // {
+    //   title: "Academic Support",
+    //   description: "Learning Resource Center, Writing Center, Career Counseling, Academic Advisors",
+    //   icon: <BookOpen className="w-8 h-8 text-teal-500" />,
+    //   color: "border-teal-500"
+    // }
   ];
 
   return (

@@ -29,11 +29,11 @@ const StudentResultCard = ({ student, getPepTalk, pepTalk, isPepTalkLoading }) =
         <span className="font-mono bg-gray-100 text-gray-800 px-3 py-1 rounded-lg text-base sm:text-lg w-full sm:w-auto text-center">{student.regNo}</span>
       </div>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4">
-        <span className="text-gray-600 text-base sm:text-lg">Block:</span>
+        <span className="text-gray-600 text-base sm:text-lg">Class:</span>
         <span className="text-blue-600 text-base sm:text-lg font-medium">{student.hall || 'Not assigned'}</span>
       </div>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4">
-        <span className="text-gray-600 text-base sm:text-lg">Room Number:</span>
+        <span className="text-gray-600 text-base sm:text-lg">Floor:</span>
         <span className="text-blue-600 text-base sm:text-lg font-medium">{student.room || 'Not assigned'}</span>
       </div>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4">

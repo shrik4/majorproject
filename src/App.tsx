@@ -29,6 +29,7 @@ import ExamHallAdminPage from "./pages/ExamHallAdminPage";
 import ExamHallFinderPage from "./pages/ExamHallFinderPage";
 import OpeningAnimation from "./components/OpeningAnimation";
 import UserProfilePage from "./pages/UserProfilePage";
+import JobSearchPage from "./pages/JobSearchPage";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ const App = () => {
                 <Route path="/study-materials" element={<StudyMaterialsPage />} />
                 <Route path="/resume-builder" element={<ResumeBuilderPage />} />
                 <Route path="/user-profile" element={<UserProfilePage />} />
+                <Route path="/job-search" element={<JobSearchPage />} />
 
                 <Route element={<AuthCheckAdmin />}>
                   <Route path="/admin/chatbot-qp" element={<ChatbotAdminPage />} />
