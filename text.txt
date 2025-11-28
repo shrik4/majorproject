@@ -1,0 +1,294 @@
+## The Solution: Hybrid Search
+The most robust solution is to implement a hybrid search. Before you do a vector search, you first check if the user's query is an exact ID lookup.
+
+ID Check: Use a simple rule (a regular expression) to see if the query looks like a USN.
+
+Direct Lookup: If it is a USN, bypass the vector search entirely and do a fast, direct text search through your metadata. This is 100% accurate.
+
+Fallback to Vector Search: If the query is not a USN, proceed with the vector search as you were doing before.
+
+This gives you the best of both worlds: perfect accuracy for ID lookups and semantic flexibility for general questions.
+
+Here is the complete, corrected main.py file that implements this hybrid search logic.
+
+Corrected main.py (with Hybrid Search)
+Python
+
+import os
+import uuid
+import json
+import shutil
+import time
+import random
+import re  # <-- Add this import
+from typing import List, Optional
+
+# FastAPI for creating the API
+from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+# Data handling and vector processing
+import pandas as pd
+import numpy as np
+import faiss
+
+# For loading environment variables, embedding models, and API requests
+from dotenv import load_dotenv
+from sentence_transformers import SentenceTransformer
+import requests
+
+# --- 1. CONFIGURATION & INITIALIZATION ---
+
+load_dotenv()
+
+# Use the OpenRouter API Key
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+if not OPENROUTER_API_KEY:
+    raise RuntimeError("❌ OPENROUTER_API_KEY is not set in the .env file.")
+
+YOUR_SITE_URL = os.getenv("YOUR_SITE_URL", "http://localhost:3000")
+
+# Directory to store our vector index and data files
+STORE_DIR = "data_store"
+os.makedirs(STORE_DIR, exist_ok=True)
+INDEX_PATH = os.path.join(STORE_DIR, "vector_index.faiss")
+METADATA_PATH = os.path.join(STORE_DIR, "metadata.json")
+
+# Initialize the FastAPI app
+app = FastAPI(title="📄 CSV & Web RAG API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# --- 2. GLOBAL VARIABLES & MODELS ---
+
+embed_model = None
+index = None
+metadata = []
+EMBEDDING_DIM = 384
+# A simple regex to detect a USN format
+USN_PATTERN = re.compile(r'\b4DM\d{2}[A-Z]{2}\d{3}\b', re.IGNORECASE)
+
+
+# --- 3. PYDANTIC MODELS ---
+
+class ChatRequest(BaseModel):
+    question: str
+    session_id: Optional[str] = None
+    top_k: int = 5
+
+class ChatResponse(BaseModel):
+    session_id: str
+    answer: str
+    source_documents: List[dict]
+
+class Student(BaseModel):
+    source: str
+    row: int
+    text: str
+
+# --- 4. CORE FUNCTIONS ---
+
+def load_models_and_index():
+    """Load the embedding model and the FAISS index from disk on startup."""
+    global embed_model, EMBEDDING_DIM, index, metadata
+    print("Loading embedding model...")
+    embed_model = SentenceTransformer("all-MiniLM-L6-v2")
+    EMBEDDING_DIM = embed_model.get_sentence_embedding_dimension()
+    print(f"✅ Embedding model loaded (Dimension: {EMBEDDING_DIM}).")
+
+    if os.path.exists(INDEX_PATH) and os.path.exists(METADATA_PATH):
+        print("Loading existing FAISS index and metadata...")
+        index = faiss.read_index(INDEX_PATH)
+        with open(METADATA_PATH, "r") as f:
+            metadata = json.load(f)
+        print(f"✅ Index loaded with {len(metadata)} documents.")
+    else:
+        print("No index found. Creating a new one.")
+        index = faiss.IndexFlatIP(EMBEDDING_DIM)
+        metadata = []
+        print("✅ New empty index created.")
+
+def save_index():
+    """Save the current FAISS index and metadata to disk."""
+    faiss.write_index(index, INDEX_PATH)
+    with open(METADATA_PATH, "w") as f:
+        json.dump(metadata, f)
+    print(f"💾 Index and metadata saved with {len(metadata)} documents.")
+
+def normalize_vectors(vectors: np.ndarray) -> np.ndarray:
+    """Normalize vectors to unit length for accurate cosine similarity search."""
+    norms = np.linalg.norm(vectors, axis=1, keepdims=True)
+    return np.divide(vectors, norms, where=norms != 0)
+    
+# --- NEW: Direct lookup function for USNs ---
+def find_student_by_usn(usn: str) -> List[dict]:
+    """Performs a direct, case-insensitive text search for a USN in the metadata."""
+    print(f"🔍 Performing direct lookup for USN: {usn}")
+    usn_query = usn.lower()
+    results = [
+        doc for doc in metadata 
+        if f"usn: {usn_query}" in doc.get("text", "").lower()
+    ]
+    return results
+
+def get_llm_response(prompt: str) -> str:
+    """Gets a response from the OpenRouter API with retry logic."""
+    url = "https://openrouter.ai/api/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "HTTP-Referer": YOUR_SITE_URL,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": "google/gemini-flash-1.5",
+        "messages": [{"role": "user", "content": prompt}]
+    }
+
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = requests.post(url, headers=headers, json=payload, timeout=30)
+            response.raise_for_status()
+            data = response.json()
+            if 'choices' in data and data['choices']:
+                return data['choices'][0]['message']['content']
+            else:
+                return "API_INFO: The model did not return any content."
+        except requests.exceptions.RequestException as e:
+            if e.response is not None and e.response.status_code == 429:
+                wait_time = (2 ** attempt) + random.uniform(0, 1)
+                print(f"⚠️ Rate limit hit. Waiting {wait_time:.2f} seconds...")
+                time.sleep(wait_time)
+                continue
+            else:
+                error_body = e.response.text if e.response else "Could not connect."
+                return f"API_ERROR: {error_body}"
+    return f"API_ERROR: Failed after {max_retries} attempts."
+
+# --- 5. FASTAPI LIFECYCLE & ENDPOINTS ---
+
+@app.on_event("startup")
+async def startup_event():
+    load_models_and_index()
+
+@app.get("/")
+def get_status():
+    """Root endpoint to check API status."""
+    return {"status": "ok", "indexed_documents": len(metadata)}
+
+@app.post("/upload-csv/")
+async def upload_and_index_csv(file: UploadFile = File(...)):
+    """Endpoint to upload a CSV and index its contents."""
+    global index, metadata
+    if not file.filename.endswith(".csv"):
+        raise HTTPException(status_code=400, detail="Please upload a .csv file.")
+
+    temp_path = os.path.join(STORE_DIR, f"temp_{file.filename}")
+    with open(temp_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        df = pd.read_csv(temp_path, dtype=str).fillna("")
+        documents_for_embedding = []
+        new_metadata_entries = []
+
+        for idx, row in df.iterrows():
+            embedding_text = " ".join(str(val) for val in row.values if val)
+            display_text = " | ".join(f"{col}: {val}" for col, val in row.items())
+            
+            documents_for_embedding.append(embedding_text)
+            new_metadata_entries.append({"source": file.filename, "row": idx, "text": display_text})
+
+        if not documents_for_embedding:
+            return {"message": "CSV file is empty."}
+        
+        new_embeddings = embed_model.encode(documents_for_embedding, convert_to_numpy=True, show_progress_bar=True)
+        new_embeddings = normalize_vectors(new_embeddings)
+
+        index.add(new_embeddings.astype(np.float32))
+        metadata.extend(new_metadata_entries)
+        
+        save_index()
+        return {"message": f"Successfully indexed {len(documents_for_embedding)} rows."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to process file: {str(e)}")
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+
+@app.post("/chat/", response_model=ChatResponse)
+def chat_with_csv(request: ChatRequest):
+    """Main chat endpoint with hybrid search logic."""
+    question = request.question.strip()
+    session_id = request.session_id or str(uuid.uuid4())
+    final_answer = ""
+    source_docs = []
+    retrieved_docs = []
+
+    # --- Start of Hybrid Search Logic ---
+    usn_match = USN_PATTERN.search(question)
+    
+    if "question paper" in question.lower() or "exam paper" in question.lower():
+        prompt = f"You are a helpful student assistant. Search the web and find the top 3-5 direct download links for the VTU question paper for: '{question}'. Format the answer as a clean list."
+        final_answer = get_llm_response(prompt)
+        
+    elif usn_match:
+        # If the query is a USN, use direct lookup
+        retrieved_docs = find_student_by_usn(usn_match.group(0))
+
+    else:
+        # Otherwise, fall back to vector search for general queries
+        print("🧠 Standard query detected. Using RAG with FAISS index...")
+        if index is None or index.ntotal == 0:
+            raise HTTPException(status_code=400, detail="No documents indexed.")
+
+        question_embedding = embed_model.encode([request.question], convert_to_numpy=True)
+        question_embedding = normalize_vectors(question_embedding).astype(np.float32)
+
+        top_k = min(request.top_k, index.ntotal)
+        _, I = index.search(question_embedding, top_k)
+        retrieved_docs = [metadata[i] for i in I[0]]
+        
+    source_docs = retrieved_docs
+    # --- End of Hybrid Search Logic ---
+    
+    # Generate the final answer if we haven't already (e.g., from web search)
+    if not final_answer:
+        if not retrieved_docs:
+            final_answer = "I could not find any relevant information in the uploaded documents to answer your question."
+        else:
+            context_str = "\n---\n".join([doc['text'] for doc in retrieved_docs])
+            prompt_with_context = f"""
+            You are an intelligent assistant. Your only task is to answer the user's question based on the "CONTEXT" provided below.
+            CONTEXT:
+            ---
+            {context_str}
+            ---
+            USER'S QUESTION:
+            {question}
+            ---
+            Based strictly on the context, what are the details for this person or question?
+            """
+            final_answer = get_llm_response(prompt_with_context)
+
+    if final_answer.startswith("API_ERROR:") or final_answer.startswith("API_INFO:"):
+        final_answer = f"There was a problem with the API call. The exact details are:\n\n{final_answer}"
+
+    return ChatResponse(session_id=session_id, answer=final_answer, source_documents=source_docs)
+
+@app.post("/clear-index/")
+def clear_index():
+    """Endpoint to clear the entire index and start fresh."""
+    global index, metadata
+    index = faiss.IndexFlatIP(EMBEDDING_DIM)
+    metadata = []
+    save_index()
+    print("🗑️ Index has been cleared.")
+    return {"message": "Index cleared successfully."}

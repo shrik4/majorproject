@@ -24,6 +24,7 @@ import CourseAdminPage from "./pages/CourseAdminPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AuthCheckAdmin from "./components/AuthCheckAdmin";
 import OtherInformationPage from "./pages/OtherInformationPage";
+import YoutubeSearchPage from "./pages/YoutubeSearchPage";
 import ResumeBuilderPage from "./pages/ResumeBuilderPage";
 import ExamHallAdminPage from "./pages/ExamHallAdminPage";
 import ExamHallFinderPage from "./pages/ExamHallFinderPage";
@@ -60,7 +61,8 @@ const App = () => {
                 <Route path="/events" element={<EventsPage />} />
                 <Route path="/courses" element={<CoursePage />} />
                 <Route path="/admin/login" element={<AdminLoginPage />} />
-                <Route path="/other-information" element={<OtherInformationPage />} />
+                <Route path="/youtube-search" element={<YoutubeSearchPage />} />
+          <Route path="/other-information" element={<OtherInformationPage />} />
                 <Route path="/exam-hall-finder" element={<ExamHallFinderPage />} />
                 <Route path="/study-materials" element={<StudyMaterialsPage />} />
                 <Route path="/resume-builder" element={<ResumeBuilderPage />} />

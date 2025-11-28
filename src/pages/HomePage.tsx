@@ -134,7 +134,7 @@ const HomePage: React.FC = () => {
                   <p className="text-gray-600">Navigate campus with our detailed interactive maps and get directions to any building or facility.</p>
                 </div>
                 
-                <div className="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 animate-float" style={{ animationDelay: '200ms' }}>
+                <div className="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 animate-float cursor-pointer hover:shadow-lg transition-shadow" style={{ animationDelay: '200ms' }} onClick={() => handleNavigation('/chatbot')}>
                   <div className="w-12 h-12 bg-campus-100 rounded-xl flex items-center justify-center text-campus-600 mb-4">
                     <MessageSquare size={24} />
                   </div>

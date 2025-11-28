@@ -1,2 +1,2 @@
-from werkzeug.security import generate_password_hash
-print(generate_password_hash("password"))
+# from werkzeug.security import generate_password_hash
+# print(generate_password_hash("password"))

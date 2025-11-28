@@ -77,13 +77,13 @@ const OtherInformationPage: React.FC = () => {
       backgroundImage: "url(/jobfinder.png)",
       onClick: () => navigate('/job-search')
     },
-    // {
-    //   title: "Student Services",
-    //   description: "Learn about various student support services and resources available.",
-    //   icon: <GraduationCap size={24} />,
-    //   backgroundImage: "url(/background.png)",
-    //   onClick: () => {}
-    // },
+    {
+      title: "AI-Powered YouTube Search",
+      description: "Find the perfect video tutorial or content.",
+      icon: <GraduationCap size={24} />,
+      backgroundImage: "url('/AI-Powered YouTube Search.png')",
+      onClick: () => navigate('/youtube-search')
+    },
     // {
     //   title: "Campus Amenities",
     //   description: "Discover cafeterias, shops, printing services, and other amenities.",

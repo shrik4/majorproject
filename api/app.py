@@ -6,15 +6,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
 from functools import wraps
-import os
 
 import firebase_admin
 from firebase_admin import credentials, auth
 
 app = Flask(__name__, static_folder='..\\dist', static_url_path='/')
 app.config['SECRET_KEY'] = 'your-secret-key'
-
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload
 
 # Enable CORS
 CORS(app)

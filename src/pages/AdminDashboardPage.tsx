@@ -1,14 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 
 import StudyMaterialAdmin from '../components/StudyMaterialAdmin';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuth } from '@/components/AuthCheckAdmin';
+import FileUploader from '@/components/FileUploader';
 
 const AdminDashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const [csvFiles, setCsvFiles] = useState<File[]>([]);
+  const [uploadedFileNames, setUploadedFileNames] = useState<Set<string>>(new Set());
+
+  const handleFilesAdded = (files: File[]) => {
+    const newFileNames = new Set<string>();
+    files.forEach(file => newFileNames.add(file.name));
+    setUploadedFileNames(prev => new Set([...prev, ...newFileNames]));
+    setCsvFiles(prev => [...prev, ...files]);
+  };
+
+  const handleFileRemoved = (fileName: string) => {
+    setUploadedFileNames(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(fileName);
+      return newSet;
+    });
+    setCsvFiles(prev => prev.filter(file => file.name !== fileName));
+  };
+
+  const handleUploadCsv = async () => {
+    if (csvFiles.length === 0) {
+      alert("Please select a CSV file to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', csvFiles[0]);
+
+    try {
+      const response = await fetch('http://localhost:8010/upload-csv/', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`CSV upload failed: ${response.statusText}`);
+      }
+
+      alert("CSV file uploaded successfully!");
+      setCsvFiles([]);
+      setUploadedFileNames(new Set());
+    } catch (error) {
+      console.error('CSV upload error:', error);
+      alert("Error uploading CSV file.");
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -34,10 +81,11 @@ const AdminDashboardPage: React.FC = () => {
             <div className="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between">
               <div>
                 <h2 className="text-xl font-semibold mb-4 text-blue-700">Chatbot & Question Paper Administration</h2>
-                <p className="text-gray-600">Manage chatbot settings, student data, and question papers.</p>
+                <p className="text-gray-600">Upload CSV files for chatbot data.</p>
               </div>
               <div className="mt-4">
-                <Link to="/admin/chatbot-qp" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Manage Chatbot & QPs</Link>
+                <FileUploader onFilesAdded={handleFilesAdded} onFileRemoved={handleFileRemoved} uploadedFileNames={uploadedFileNames} />
+                <button onClick={handleUploadCsv} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors mt-2">Upload CSV</button>
               </div>
             </div>
 
