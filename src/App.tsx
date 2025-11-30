@@ -39,6 +39,8 @@ import SemesterResultUploadPage from "./pages/SemesterResultUploadPage";
 import AssignmentMarksEntryPage from "./pages/AssignmentMarksEntryPage";
 import SubjectAdminPage from "./pages/SubjectAdminPage";
 import ClassToppersPage from "./pages/ClassToppersPage";
+import NotificationSettingsPage from "./pages/NotificationSettingsPage";
+import AIStudyBuddyPage from "./pages/AIStudyBuddyPage";
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -81,6 +83,7 @@ const App = () => {
                 <Route path="/select-internals" element={<SelectInternalsPage />} />
                 <Route path="/upload-semester-result" element={<SemesterResultUploadPage />} />
                 <Route path="/assignment-marks-entry" element={<AssignmentMarksEntryPage />} />
+                <Route path="/study-buddy" element={<AIStudyBuddyPage />} />
 
                 <Route element={<AuthCheckAdmin />}>
                   <Route path="/admin/chatbot-qp" element={<ChatbotAdminPage />} />
@@ -92,6 +95,7 @@ const App = () => {
                   <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
                   <Route path="/performance-analyzer" element={<StudentPerformanceAnalyzerPage />} />
                   <Route path="/class-toppers" element={<ClassToppersPage />} />
+                  <Route path="/admin/notifications" element={<NotificationSettingsPage />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>

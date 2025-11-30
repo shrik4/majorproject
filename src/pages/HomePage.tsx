@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import AuthCheck from '@/components/AuthCheck';
 import InfoCard from '@/components/InfoCard';
 import { Button } from "@/components/ui/button";
-import { BookOpen, Users, Briefcase, FileText, ArrowRight, MapPin, MessageSquare, School } from 'lucide-react';
+import { BookOpen, Users, Briefcase, FileText, ArrowRight, MapPin, MessageSquare, School, Brain } from 'lucide-react';
 import { useThrottledNavigation } from '@/hooks/use-throttled-navigation';
 
 const HomePage: React.FC = () => {
@@ -76,7 +76,7 @@ const HomePage: React.FC = () => {
                 <div className="flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
                   <Button
                     className="bg-white text-campus-700 hover:bg-gray-100 font-medium shadow-lg"
-                    onClick={() => navigate('/navigation')}
+                    onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=Yenepoya+Institute+of+Technology+Thador+Karkal+Karnataka', '_blank')}
                     size="lg"
                   >
                     <MapPin size={18} className="mr-2" />

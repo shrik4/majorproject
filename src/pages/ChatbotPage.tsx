@@ -44,8 +44,8 @@ const ChatbotPage: React.FC = () => {
         botMessageText = "I received a response, but it was empty.";
       }
 
-      const botMessage = { 
-        text: botMessageText, 
+      const botMessage = {
+        text: botMessageText,
         sender: 'bot'
       };
 
@@ -67,45 +67,41 @@ const ChatbotPage: React.FC = () => {
     <AuthCheck>
       <div className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
-        <main className="flex-grow container px-4 md:px-6 py-8">
-          <div className="flex flex-col md:flex-row max-w-6xl mx-auto gap-6">
-            <div className="flex-1 bg-white rounded-lg shadow-md p-4 flex flex-col" style={{ height: '700px' }}>
-            <h1 className="text-2xl md:text-3xl font-bold mb-6">Campus Assistant</h1>
-              <div className="flex-grow overflow-y-auto mb-4">
-                {messages.map((msg, index) => (
-                  <ChatMessage
-                    key={index}
-                    message={msg.text || ''}
-                    isBot={msg.sender === 'bot'}
-                    link={msg.link || undefined}
-                    sources={msg.sources || undefined}
-                  />
-                ))}
-              </div>
-              <div className="flex flex-col gap-2">
-                 <div className="flex">
-                   <input
-                     type="text"
-                     value={input}
-                     onChange={(e) => setInput(e.target.value)}
-                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                     className="flex-grow border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                     placeholder="Type your message..."
-                   />
-                  <button onClick={handleSendMessage} className="bg-blue-500 text-white rounded-r-lg px-4 py-2 hover:bg-blue-600">
-                    Send
-                  </button>
-                </div>
-              </div>
+        <main className="flex-grow container px-4 md:px-6 py-8 flex items-center justify-center">
+          <div className="w-full max-w-4xl bg-white rounded-lg shadow-md flex flex-col" style={{ height: 'calc(100vh - 150px)' }}>
+            <div className="p-6 border-b">
+              <h1 className="text-2xl md:text-3xl font-bold">Campus Assistant</h1>
             </div>
-            <div className="w-full md:w-1/3 bg-white rounded-lg shadow-md p-4" style={{ height: '700px' }}>
-              <h2 className="text-xl font-bold mb-4">Tips</h2>
-              <ul className="space-y-2">
-                 <li><b>For CSV analysis:</b> Upload a CSV file and ask questions about its content.</li>
-                 <li><b>For inquiries about individuals:</b> Use the format "Who is [Name]?" (e.g., "Who is Shobith?", "Who is Dr. Arvind Menon?").</li>
-                <li><b>For retrieving information by USN:</b> Simply type the USN (e.g., "4DM22AI056").</li>
-                <li><b>For downloading question papers:</b> Use the format "download [filename.pdf]" (e.g., "download bai613a.pdf"). Emphasize that the complete subject code and the '.pdf' extension must be included.</li>
-              </ul>
+            <div className="flex-grow overflow-y-auto p-6">
+              {messages.map((msg, index) => (
+                <ChatMessage
+                  key={index}
+                  message={msg.text || ''}
+                  isBot={msg.sender === 'bot'}
+                  link={msg.link || undefined}
+                  sources={msg.sources || undefined}
+                />
+              ))}
+            </div>
+            <div className="p-6 border-t">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                  className="flex-grow border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Type your message..."
+                  disabled={isLoading}
+                />
+                <button
+                  onClick={handleSendMessage}
+                  className="bg-blue-500 text-white rounded-lg px-6 py-2 hover:bg-blue-600 disabled:bg-gray-400"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Sending...' : 'Send'}
+                </button>
+              </div>
             </div>
           </div>
         </main>

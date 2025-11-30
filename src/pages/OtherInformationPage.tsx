@@ -4,12 +4,12 @@ import Navbar from '@/components/Navbar';
 import AuthCheck from '@/components/AuthCheck';
 import InfoCard from '@/components/InfoCard';
 import { Button } from '@/components/ui/button';
-import { 
+import {
   Building,
-  Clock, 
+  Clock,
   BookOpen,
-  Coffee, 
-  Bus, 
+  Coffee,
+  Bus,
   Phone,
   Stethoscope,
   GraduationCap,
@@ -84,6 +84,13 @@ const OtherInformationPage: React.FC = () => {
       backgroundImage: "url('/AI-Powered YouTube Search.png')",
       onClick: () => navigate('/youtube-search')
     },
+    {
+      title: "AI Study Buddy",
+      description: "Your personal AI assistant for study plans, practice questions, and concept explanations.",
+      icon: <BookOpen size={24} />,
+      backgroundImage: "url('/AI Study Buddy.png')",
+      onClick: () => navigate('/study-buddy')
+    },
     // {
     //   title: "Campus Amenities",
     //   description: "Discover cafeterias, shops, printing services, and other amenities.",
@@ -124,7 +131,7 @@ const OtherInformationPage: React.FC = () => {
         <Navbar />
         <main className="flex-grow">
           {/* Hero Section */}
-          <section className="text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden" 
+          <section className="text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden"
             style={{ backgroundImage: 'url("\campus hub.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <div className="container relative px-4 md:px-6 z-10">
@@ -132,7 +139,7 @@ const OtherInformationPage: React.FC = () => {
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in leading-tight">
                   Campus Hub
                 </h1>
-                <p className="text-lg md:text-xl mb-8 text-gray-100 animate-fade-in max-w-2xl mx-auto" 
+                <p className="text-lg md:text-xl mb-8 text-gray-100 animate-fade-in max-w-2xl mx-auto"
                   style={{ animationDelay: '100ms' }}>
                   campus tools and services
                 </p>

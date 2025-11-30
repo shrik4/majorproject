@@ -19,10 +19,11 @@ interface Subject {
 const StudentUploadPage: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const state = location.state as { name?: string; usn?: string; semester?: number; internal?: string; department?: string };
+    const state = location.state as { name?: string; usn?: string; semester?: number; internal?: string; department?: string; email?: string };
 
     const [name, setName] = useState('');
     const [usn, setUsn] = useState('');
+    const [email, setEmail] = useState('');
     const [department, setDepartment] = useState('');
     const [fetchedSubjects, setFetchedSubjects] = useState<Subject[]>([]);
     const [loading, setLoading] = useState(false);
@@ -70,8 +71,8 @@ const StudentUploadPage: React.FC = () => {
 
     const handleSubmitInitial = (e: React.FormEvent) => {
         e.preventDefault();
-        if (name && usn && department) {
-            navigate('/select-semester', { state: { name, usn, department } });
+        if (name && usn && department && email) {
+            navigate('/select-semester', { state: { name, usn, department, email } });
         }
     };
 
@@ -91,6 +92,7 @@ const StudentUploadPage: React.FC = () => {
             student: {
                 name: state?.name || '',
                 usn: state?.usn || '',
+                email: state?.email || '',
                 semester: state?.semester || 0,
                 department: state?.department || ''
             },
@@ -226,6 +228,17 @@ const StudentUploadPage: React.FC = () => {
                                         onChange={(e) => setUsn(e.target.value)}
                                         required
                                         placeholder="Enter your USN"
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="email">Email Address</Label>
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                        placeholder="Enter your email address"
                                     />
                                 </div>
                                 <div>

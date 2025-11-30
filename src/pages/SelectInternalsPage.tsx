@@ -8,7 +8,7 @@ import { ClipboardList } from 'lucide-react';
 const SelectInternalsPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state as { name?: string; usn?: string; semester?: number; department?: string } | null;
+  const state = location.state as { name?: string; usn?: string; semester?: number; department?: string; email?: string } | null;
 
   useEffect(() => {
     if (!state) {
@@ -20,14 +20,14 @@ const SelectInternalsPage: React.FC = () => {
     return null;
   }
 
-  const { name = '', usn = '', semester = 0, department = '' } = state;
+  const { name = '', usn = '', semester = 0, department = '', email = '' } = state;
 
   const handleInternalSelect = (internal: string) => {
-    navigate('/student-upload', { state: { name, usn, semester, department, internal } });
+    navigate('/student-upload', { state: { name, usn, semester, department, internal, email } });
   };
 
   const handleUploadResult = () => {
-    navigate('/upload-semester-result', { state: { name, usn, semester, department } });
+    navigate('/upload-semester-result', { state: { name, usn, semester, department, email } });
   };
 
   return (
@@ -58,7 +58,7 @@ const SelectInternalsPage: React.FC = () => {
                   </Button>
                 ))}
                 <Button
-                  onClick={() => navigate('/assignment-marks-entry', { state: { name, usn, semester, department } })}
+                  onClick={() => navigate('/assignment-marks-entry', { state: { name, usn, semester, department, email } })}
                   className="h-14 text-lg font-semibold bg-purple-500 hover:bg-purple-600 text-white"
                   variant="default"
                 >

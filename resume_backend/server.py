@@ -45,7 +45,7 @@ def enhance_description():
     try: 
         # Initialize the model (it's good practice to do this once if the app were larger, 
         # but for a single endpoint, this is fine) 
-        model = genai.GenerativeModel('gemini-2.5-flash-preview-05-20') 
+        model = genai.GenerativeModel('models/gemini-2.5-flash') 
 
         # The prompt for the AI model 
         prompt = ( 

@@ -8,7 +8,7 @@ import { GraduationCap } from 'lucide-react';
 const SelectSemesterPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state as { name?: string; usn?: string; department?: string } | null;
+  const state = location.state as { name?: string; usn?: string; department?: string; email?: string } | null;
 
   useEffect(() => {
     if (!state) {
@@ -20,10 +20,10 @@ const SelectSemesterPage: React.FC = () => {
     return null;
   }
 
-  const { name = '', usn = '', department = '' } = state;
+  const { name = '', usn = '', department = '', email = '' } = state;
 
   const handleSemesterSelect = (semester: number) => {
-    navigate('/select-internals', { state: { name, usn, department, semester } });
+    navigate('/select-internals', { state: { name, usn, department, semester, email } });
   };
 
   return (

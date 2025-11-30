@@ -62,10 +62,40 @@ def save_student_performance():
             return jsonify({'message': 'Invalid data format'}), 400
 
         # Add timestamp if not present
-        if 'uploadedAt' not in data:
-            data['uploadedAt'] = datetime.datetime.utcnow().isoformat()
+        data['uploadedAt'] = datetime.datetime.utcnow().isoformat()
 
         performance_collection.insert_one(data)
+        
+        # Trigger low performance notification
+        try:
+            import requests
+            student = data.get('student', {})
+            internal_marks = data.get('internalMarks', [])
+            subjects = data.get('subjects', [])
+            
+            # Check for low performance (marks < 40%)
+            for i, mark in enumerate(internal_marks):
+                if mark < 20:  # Less than 40% of 50
+                    subject_name = subjects[i] if i < len(subjects) else 'Unknown Subject'
+                    
+                    # Send notification
+                    notification_data = {
+                        'type': 'low_performance',
+                        'email': student.get('email', f"{student.get('usn', 'student')}@example.com"),
+                        'userId': student.get('usn'),
+                        'data': {
+                            'studentName': student.get('name', 'Student'),
+                            'subject': subject_name,
+                            'marks': mark,
+                            'threshold': 20
+                        }
+                    }
+                    
+                    requests.post('http://127.0.0.1:8013/api/notifications/send', 
+                                json=notification_data, timeout=5)
+        except Exception as notif_error:
+            print(f"Error sending notification: {notif_error}")
+        
         return jsonify({'message': 'Performance data saved successfully'}), 201
     except Exception as e:
         print(f"Error saving data: {e}")
@@ -224,7 +254,7 @@ def get_ai_toppers():
             }), 200
         
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('models/gemini-2.5-flash')
         
         # Generate AI insights for each topper
         for i, student in enumerate(top_3):
@@ -288,6 +318,29 @@ Provide key observations about the class performance and these top performers.""
         except Exception as ai_error:
             print(f"AI generation error for overall analysis: {ai_error}")
             overall_analysis = f"The top 3 students in {department} Semester {semester} demonstrate strong academic performance with consistent marks across subjects."
+        
+        # Send milestone achievement notifications to top 3
+        try:
+            import requests
+            for topper in top_3:
+                notification_data = {
+                    'type': 'milestone',
+                    'email': f"{topper.get('usn', 'student')}@example.com",
+                    'userId': topper.get('usn'),
+                    'data': {
+                        'studentName': topper.get('name', 'Student'),
+                        'achievement': f"Rank {topper['rank']} in {department} Semester {semester}",
+                        'rank': topper['rank'],
+                        'totalMarks': topper['totalMarks'],
+                        'department': department,
+                        'semester': semester
+                    }
+                }
+                
+                requests.post('http://127.0.0.1:8013/api/notifications/send',
+                            json=notification_data, timeout=5)
+        except Exception as notif_error:
+            print(f"Error sending milestone notifications: {notif_error}")
         
         return jsonify({
             'toppers': top_3,
