@@ -113,6 +113,27 @@ const MockInterviewPage: React.FC = () => {
         if (!isMounted.current) return;
 
         const utterance = new SpeechSynthesisUtterance(text);
+
+        // Get available voices and select a natural-sounding one
+        const voices = window.speechSynthesis.getVoices();
+
+        // Try to find a high-quality English voice (prefer female voices for professional tone)
+        const preferredVoice = voices.find(voice =>
+            (voice.name.includes('Google') || voice.name.includes('Microsoft') || voice.name.includes('Samantha') || voice.name.includes('Karen')) &&
+            voice.lang.startsWith('en')
+        ) || voices.find(voice => voice.lang.startsWith('en-US') && voice.name.includes('Female'))
+            || voices.find(voice => voice.lang.startsWith('en-US'))
+            || voices[0];
+
+        if (preferredVoice) {
+            utterance.voice = preferredVoice;
+        }
+
+        // Adjust speech parameters for more natural, professional sound
+        utterance.rate = 0.9;  // Slightly slower for clarity and professionalism
+        utterance.pitch = 1.0; // Natural pitch
+        utterance.volume = 1.0; // Full volume
+
         setIsSpeaking(true);
 
         utterance.onend = () => {
@@ -308,24 +329,25 @@ const MockInterviewPage: React.FC = () => {
                                 {/* Interviewer Avatar Area */}
                                 <Card className="shadow-lg border-0 overflow-hidden relative h-[400px] bg-gray-900 flex flex-col items-center justify-center">
                                     {/* Interviewer Image */}
-                                    <div className="absolute inset-0 opacity-80">
+                                    <div className="absolute inset-0 opacity-90">
                                         <img
                                             src="/interviewer.png"
                                             alt="AI Interviewer"
                                             className="w-full h-full object-cover"
+                                            style={{ objectPosition: 'center 20%' }}
                                         />
                                     </div>
 
                                     {/* Speaking Indicator */}
                                     {isSpeaking && (
-                                        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-1">
+                                        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-1 z-10">
                                             <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                                             <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
                                             <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                                         </div>
                                     )}
 
-                                    <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 text-white text-center">
+                                    <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/90 to-transparent p-4 text-white text-center z-10">
                                         <p className="font-medium text-lg">AI Interviewer</p>
                                         <p className="text-sm text-gray-300">{isSpeaking ? "Speaking..." : "Listening..."}</p>
                                     </div>
