@@ -91,6 +91,13 @@ const OtherInformationPage: React.FC = () => {
       backgroundImage: "url('/AI Study Buddy.png')",
       onClick: () => navigate('/study-buddy')
     },
+    {
+      title: "AI Mock Interviewer",
+      description: "Practice for your placements with our AI-powered voice interviewer.",
+      icon: <GraduationCap size={24} />,
+      backgroundImage: "url('/Ai mock interviewer.png')",
+      onClick: () => navigate('/mock-interview')
+    },
     // {
     //   title: "Campus Amenities",
     //   description: "Discover cafeterias, shops, printing services, and other amenities.",

@@ -42,6 +42,7 @@ import ClassToppersPage from "./pages/ClassToppersPage";
 import NotificationSettingsPage from "./pages/NotificationSettingsPage";
 import AIStudyBuddyPage from "./pages/AIStudyBuddyPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import MockInterviewPage from "./pages/MockInterviewPage";
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -86,6 +87,7 @@ const App = () => {
                 <Route path="/upload-semester-result" element={<SemesterResultUploadPage />} />
                 <Route path="/assignment-marks-entry" element={<AssignmentMarksEntryPage />} />
                 <Route path="/study-buddy" element={<AIStudyBuddyPage />} />
+                <Route path="/mock-interview" element={<MockInterviewPage />} />
 
                 <Route element={<AuthCheckAdmin />}>
                   <Route path="/admin/chatbot-qp" element={<ChatbotAdminPage />} />

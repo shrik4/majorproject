@@ -17,7 +17,8 @@ backend_paths = {
     "ai_youtube_search_backend": os.path.join("ai_youtube_search_backend", "app.py"),
     "student_performance_backend": os.path.join("student_performance_backend", "app.py"),
     "notifications_backend": os.path.join("notifications_backend", "app.py"),
-    "ai_study_buddy_backend": os.path.join("ai_study_buddy_backend", "app.py")
+    "ai_study_buddy_backend": os.path.join("ai_study_buddy_backend", "app.py"),
+    "mock_interview_backend": os.path.join("mock_interview_backend", "app.py")
 }
 
 frontend_paths = {
