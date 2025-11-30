@@ -6,7 +6,6 @@ import time
 # Define the paths to each backend's main script
 backend_paths = {
     "api": os.path.join("api", "run.py"),
-
     "live_events_backend": os.path.join("live_events_backend", "app.py"),
     "auth": os.path.join("auth", "app.py"),
     "course_backend": os.path.join("course_backend", "app.py"),
@@ -15,7 +14,8 @@ backend_paths = {
     "resume_backend": os.path.join("resume_backend", "server.py"),
     "job_search_backend": os.path.join("job_search_backend", "app.py"),
     "geolocation_backend": os.path.join("geolocation_backend", "app.py"),
-    "ai_youtube_search_backend": os.path.join("ai_youtube_search_backend", "app.py")
+    "ai_youtube_search_backend": os.path.join("ai_youtube_search_backend", "app.py"),
+    "student_performance_backend": os.path.join("student_performance_backend", "app.py")
 }
 
 frontend_paths = {

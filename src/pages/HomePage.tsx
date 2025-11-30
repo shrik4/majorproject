@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const throttledNavigate = useThrottledNavigation(navigate);
   const [isNavigating, setIsNavigating] = useState(false);
-  
+
   const handleNavigation = (path: string) => {
     if (isNavigating) return;
     setIsNavigating(true);
@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
     // Reset navigating state after delay
     setTimeout(() => setIsNavigating(false), 1000);
   };
-  
+
   const infoCards = [
     {
       title: 'Study Materials',
@@ -29,13 +29,13 @@ const HomePage: React.FC = () => {
       onClick: () => handleNavigation('/study-materials'),
       backgroundImage: 'url(/study%20material.png)'
     },
-        {
-          title: 'Events',
-          description: 'Access information about live events, announcements, and important notices.',
-          icon: <Users size={24} />,
-          onClick: () => handleNavigation('/events'),
-          backgroundImage: 'url(/events.png)'
-        },
+    {
+      title: 'Events',
+      description: 'Access information about live events, announcements, and important notices.',
+      icon: <Users size={24} />,
+      onClick: () => handleNavigation('/events'),
+      backgroundImage: 'url(/events.png)'
+    },
     {
       title: 'Courses',
       description: 'Explore a variety of courses, including YouTube tutorials and recommended study materials.',
@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
     <AuthCheck>
       <div className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
-        
+
         <main className="flex-grow">
           {/* Hero Section */}
           <section className="text-white pt-16 pb-24 md:pt-20 md:pb-32 relative overflow-hidden">
@@ -63,18 +63,18 @@ const HomePage: React.FC = () => {
               <source src="/YENEPOYA.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-              <div className="absolute inset-0 bg-black opacity-50"></div>
-              <div className="container relative px-4 md:px-6 z-10">
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+            <div className="container relative px-4 md:px-6 z-10">
               <div className="max-w-4xl mx-auto text-center">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in leading-tight">
-                    Campus Information & Navigation System
-                  </h1>
+                  Campus Information & Navigation System
+                </h1>
                 <p className="text-lg md:text-xl mb-8 text-gray-100 animate-fade-in max-w-2xl mx-auto" style={{ animationDelay: '100ms' }}>
                   Your one-stop solution for navigating campus resources and
-            accessing vital information. 
+                  accessing vital information.
                 </p>
                 <div className="flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
-                  <Button 
+                  <Button
                     className="bg-white text-campus-700 hover:bg-gray-100 font-medium shadow-lg"
                     onClick={() => navigate('/navigation')}
                     size="lg"
@@ -87,7 +87,7 @@ const HomePage: React.FC = () => {
             </div>
 
           </section>
-          
+
           {/* Quick Access Section */}
           <section className="py-10 bg-gray-50">
             <div className="container px-4 md:px-6">
@@ -99,7 +99,7 @@ const HomePage: React.FC = () => {
                   </div>
 
                 </div>
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                   {infoCards.map((card, index) => (
                     <div key={index} className="animate-fade-in group" style={{ animationDelay: `${index * 100 + 300}ms` }}>
@@ -116,7 +116,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
           </section>
-          
+
           {/* Features Section */}
           <section className="py-20 bg-white">
             <div className="container px-4 md:px-6">
@@ -124,7 +124,7 @@ const HomePage: React.FC = () => {
                 <h2 className="text-3xl font-bold mb-4">Everything You Need</h2>
                 <p className="text-gray-600">Our campus navigation system provides comprehensive tools and information to make your campus experience seamless.</p>
               </div>
-              
+
               <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 animate-float" style={{ animationDelay: '0ms' }}>
                   <div className="w-12 h-12 bg-campus-100 rounded-xl flex items-center justify-center text-campus-600 mb-4">
@@ -133,7 +133,7 @@ const HomePage: React.FC = () => {
                   <h3 className="text-xl font-semibold mb-2">Interactive Maps</h3>
                   <p className="text-gray-600">Navigate campus with our detailed interactive maps and get directions to any building or facility.</p>
                 </div>
-                
+
                 <div className="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 animate-float cursor-pointer hover:shadow-lg transition-shadow" style={{ animationDelay: '200ms' }} onClick={() => handleNavigation('/chatbot')}>
                   <div className="w-12 h-12 bg-campus-100 rounded-xl flex items-center justify-center text-campus-600 mb-4">
                     <MessageSquare size={24} />
@@ -141,7 +141,7 @@ const HomePage: React.FC = () => {
                   <h3 className="text-xl font-semibold mb-2">AI Chatbot</h3>
                   <p className="text-gray-600">Get instant answers to your questions about campus facilities, events, and resources.</p>
                 </div>
-                
+
                 <div className="bg-gray-50 rounded-2xl p-6 shadow-sm border border-gray-100 animate-float" style={{ animationDelay: '400ms' }}>
                   <div className="w-12 h-12 bg-campus-100 rounded-xl flex items-center justify-center text-campus-600 mb-4">
                     <School size={24} />
@@ -153,7 +153,7 @@ const HomePage: React.FC = () => {
             </div>
           </section>
         </main>
-        
+
         <footer className="bg-white py-8 border-t border-gray-200">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col md:flex-row justify-between items-center">

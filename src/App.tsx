@@ -31,7 +31,14 @@ import ExamHallFinderPage from "./pages/ExamHallFinderPage";
 import OpeningAnimation from "./components/OpeningAnimation";
 import UserProfilePage from "./pages/UserProfilePage";
 import JobSearchPage from "./pages/JobSearchPage";
-
+import StudentPerformanceAnalyzerPage from "./pages/StudentPerformanceAnalyzerPage";
+import StudentUploadPage from "./pages/StudentUploadPage";
+import SelectSemesterPage from "./pages/SelectSemesterPage";
+import SelectInternalsPage from "./pages/SelectInternalsPage";
+import SemesterResultUploadPage from "./pages/SemesterResultUploadPage";
+import AssignmentMarksEntryPage from "./pages/AssignmentMarksEntryPage";
+import SubjectAdminPage from "./pages/SubjectAdminPage";
+import ClassToppersPage from "./pages/ClassToppersPage";
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -62,20 +69,29 @@ const App = () => {
                 <Route path="/courses" element={<CoursePage />} />
                 <Route path="/admin/login" element={<AdminLoginPage />} />
                 <Route path="/youtube-search" element={<YoutubeSearchPage />} />
-          <Route path="/other-information" element={<OtherInformationPage />} />
+                <Route path="/other-information" element={<OtherInformationPage />} />
                 <Route path="/exam-hall-finder" element={<ExamHallFinderPage />} />
                 <Route path="/study-materials" element={<StudyMaterialsPage />} />
                 <Route path="/resume-builder" element={<ResumeBuilderPage />} />
                 <Route path="/user-profile" element={<UserProfilePage />} />
                 <Route path="/job-search" element={<JobSearchPage />} />
 
+                <Route path="/student-upload" element={<StudentUploadPage />} />
+                <Route path="/select-semester" element={<SelectSemesterPage />} />
+                <Route path="/select-internals" element={<SelectInternalsPage />} />
+                <Route path="/upload-semester-result" element={<SemesterResultUploadPage />} />
+                <Route path="/assignment-marks-entry" element={<AssignmentMarksEntryPage />} />
+
                 <Route element={<AuthCheckAdmin />}>
                   <Route path="/admin/chatbot-qp" element={<ChatbotAdminPage />} />
                   <Route path="/admin/study-materials" element={<StudyMaterialAdminPage />} />
                   <Route path="/admin/events" element={<EventAdminPage />} />
                   <Route path="/admin/courses" element={<CourseAdminPage />} />
+                  <Route path="/admin/subjects" element={<SubjectAdminPage />} />
                   <Route path="/admin/exam-hall" element={<ExamHallAdminPage />} />
                   <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
+                  <Route path="/performance-analyzer" element={<StudentPerformanceAnalyzerPage />} />
+                  <Route path="/class-toppers" element={<ClassToppersPage />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
