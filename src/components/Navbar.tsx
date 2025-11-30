@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
             <Link to="/student-upload" className={`nav-link ${isActive('/student-upload')}`}>Student Upload</Link>
             <Link to="/navigation" className={`nav-link ${isActive('/navigation')}`}>Campus Navigation</Link>
             <Link to="/chatbot" className={`nav-link ${isActive('/chatbot')}`}>Campus Assistant</Link>
-            <Link to="/admin-dashboard" className={`nav-link ${isActive('/admin-dashboard')}`}>Admin Dashboard</Link>
+
             <div className="pl-4 border-l border-gray-200 ml-4 flex items-center space-x-2">
               <Button
                 onClick={() => navigate('/user-profile')}
@@ -93,13 +93,7 @@ const Navbar: React.FC = () => {
             >
               Campus Navigation
             </Link>
-            <Link
-              to="/admin-dashboard"
-              className={`px-3 py-3 rounded-md text-base font-medium transition-colors ${isActive('/admin-dashboard') ? 'text-primary bg-blue-50' : 'text-gray-700 hover:bg-gray-50 hover:text-primary'}`}
-              onClick={() => setIsOpen(false)}
-            >
-              Admin Dashboard
-            </Link>
+
             <div className="pt-2 mt-2 border-t border-gray-100">
               <Button
                 onClick={() => {

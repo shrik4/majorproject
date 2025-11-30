@@ -41,6 +41,7 @@ import SubjectAdminPage from "./pages/SubjectAdminPage";
 import ClassToppersPage from "./pages/ClassToppersPage";
 import NotificationSettingsPage from "./pages/NotificationSettingsPage";
 import AIStudyBuddyPage from "./pages/AIStudyBuddyPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -64,6 +65,7 @@ const App = () => {
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                 <Route path="/chatbot" element={<ChatbotPage />} />
                 <Route path="/navigation" element={<NavigationPage />} />
                 <Route path="/question-papers" element={<QuestionPaperPage />} />

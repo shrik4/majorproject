@@ -6,7 +6,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+// Firebase is initialized in firebaseConfig.js
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
