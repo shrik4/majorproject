@@ -42,6 +42,7 @@ const Navbar: React.FC = () => {
             <Link to="/student-upload" className={`nav-link ${isActive('/student-upload')}`}>Student Upload</Link>
             <Link to="/navigation" className={`nav-link ${isActive('/navigation')}`}>Campus Navigation</Link>
             <Link to="/chatbot" className={`nav-link ${isActive('/chatbot')}`}>Campus Assistant</Link>
+            <Link to="/digital-notice-board" className={`nav-link ${isActive('/digital-notice-board')}`}>Notice Board</Link>
 
             <div className="pl-4 border-l border-gray-200 ml-4 flex items-center space-x-2">
               <Button
@@ -92,6 +93,13 @@ const Navbar: React.FC = () => {
               onClick={() => setIsOpen(false)}
             >
               Campus Navigation
+            </Link>
+            <Link
+              to="/digital-notice-board"
+              className={`px-3 py-3 rounded-md text-base font-medium transition-colors ${isActive('/digital-notice-board') ? 'text-primary bg-blue-50' : 'text-gray-700 hover:bg-gray-50 hover:text-primary'}`}
+              onClick={() => setIsOpen(false)}
+            >
+              Notice Board
             </Link>
 
             <div className="pt-2 mt-2 border-t border-gray-100">

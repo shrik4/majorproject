@@ -12,7 +12,6 @@ const AdminDashboardPage: React.FC = () => {
     navigate('/admin/login');
   };
 
-
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
@@ -91,6 +90,7 @@ const AdminDashboardPage: React.FC = () => {
             <div className="mt-4 flex flex-col gap-2">
               <Link to="/performance-analyzer" className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition-colors text-center">Analyze Performance</Link>
               <Link to="/admin/subjects" className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition-colors text-center">Manage Subjects</Link>
+              <Link to="/search-results" className="bg-violet-500 text-white px-4 py-2 rounded-md hover:bg-violet-600 transition-colors text-center">🔍 Search Student Results</Link>
             </div>
           </div>
 
@@ -105,8 +105,18 @@ const AdminDashboardPage: React.FC = () => {
               <Link to="/admin/notifications" className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white px-4 py-2 rounded-md hover:from-blue-600 hover:to-cyan-700 transition-colors text-center">🔔 Notification Settings</Link>
             </div>
           </div>
-        </div>
 
+          {/* Digital Notice Board */}
+          <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg shadow-lg p-6 flex flex-col justify-between border-2 border-yellow-200">
+            <div>
+              <h2 className="text-xl font-semibold mb-4 text-yellow-700">Digital Notice Board</h2>
+              <p className="text-gray-600">Post and manage notices for students. Pin important updates.</p>
+            </div>
+            <div className="mt-4">
+              <Link to="/admin/digital-notice-board" className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors block text-center">Manage Notices</Link>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
