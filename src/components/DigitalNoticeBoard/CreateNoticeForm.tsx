@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import axios from 'axios';
+import { useNotifications } from '@/contexts/NotificationContext';
 
 interface CreateNoticeFormProps {
     onNoticeCreated: () => void;
@@ -17,6 +18,7 @@ const CreateNoticeForm: React.FC<CreateNoticeFormProps> = ({ onNoticeCreated }) 
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('Event');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { forceCheck } = useNotifications();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,11 +32,16 @@ const CreateNoticeForm: React.FC<CreateNoticeFormProps> = ({ onNoticeCreated }) 
                 date: new Date().toISOString()
             });
 
-            toast.success('Notice created successfully');
+            toast.success('Notice created successfully! Notifications sent to all users.');
             setTitle('');
             setContent('');
             setCategory('Event');
             onNoticeCreated();
+
+            // Force notification check for all users
+            setTimeout(() => {
+                forceCheck();
+            }, 1000);
         } catch (error) {
             console.error('Error creating notice:', error);
             toast.error('Failed to create notice');

@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { NotificationProvider } from "@/contexts/NotificationContext";
 import Index from "./pages/Index";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -61,55 +61,57 @@ const App = () => {
       <div style={{ display: animationCompleted ? 'block' : 'none' }}>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignupPage />} />
-                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                <Route path="/chatbot" element={<ChatbotPage />} />
-                <Route path="/navigation" element={<NavigationPage />} />
-                <Route path="/question-papers" element={<QuestionPaperPage />} />
-                <Route path="/events" element={<EventsPage />} />
-                <Route path="/courses" element={<CoursePage />} />
-                <Route path="/admin/login" element={<AdminLoginPage />} />
-                <Route path="/youtube-search" element={<YoutubeSearchPage />} />
-                <Route path="/other-information" element={<OtherInformationPage />} />
-                <Route path="/exam-hall-finder" element={<ExamHallFinderPage />} />
-                <Route path="/study-materials" element={<StudyMaterialsPage />} />
-                <Route path="/resume-builder" element={<ResumeBuilderPage />} />
-                <Route path="/user-profile" element={<UserProfilePage />} />
-                <Route path="/job-search" element={<JobSearchPage />} />
+            <NotificationProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/home" element={<HomePage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignupPage />} />
+                  <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                  <Route path="/chatbot" element={<ChatbotPage />} />
+                  <Route path="/navigation" element={<NavigationPage />} />
+                  <Route path="/question-papers" element={<QuestionPaperPage />} />
+                  <Route path="/events" element={<EventsPage />} />
+                  <Route path="/courses" element={<CoursePage />} />
+                  <Route path="/admin/login" element={<AdminLoginPage />} />
+                  <Route path="/youtube-search" element={<YoutubeSearchPage />} />
+                  <Route path="/other-information" element={<OtherInformationPage />} />
+                  <Route path="/exam-hall-finder" element={<ExamHallFinderPage />} />
+                  <Route path="/study-materials" element={<StudyMaterialsPage />} />
+                  <Route path="/resume-builder" element={<ResumeBuilderPage />} />
+                  <Route path="/user-profile" element={<UserProfilePage />} />
+                  <Route path="/job-search" element={<JobSearchPage />} />
 
-                <Route path="/student-upload" element={<StudentUploadPage />} />
-                <Route path="/select-semester" element={<SelectSemesterPage />} />
-                <Route path="/select-internals" element={<SelectInternalsPage />} />
-                <Route path="/upload-semester-result" element={<SemesterResultUploadPage />} />
-                <Route path="/assignment-marks-entry" element={<AssignmentMarksEntryPage />} />
-                <Route path="/study-buddy" element={<AIStudyBuddyPage />} />
-                <Route path="/mock-interview" element={<MockInterviewPage />} />
-                <Route path="/search-results" element={<SearchResultsPage />} />
-                <Route path="/digital-notice-board" element={<DigitalNoticeBoardPage />} />
+                  <Route path="/student-upload" element={<StudentUploadPage />} />
+                  <Route path="/select-semester" element={<SelectSemesterPage />} />
+                  <Route path="/select-internals" element={<SelectInternalsPage />} />
+                  <Route path="/upload-semester-result" element={<SemesterResultUploadPage />} />
+                  <Route path="/assignment-marks-entry" element={<AssignmentMarksEntryPage />} />
+                  <Route path="/study-buddy" element={<AIStudyBuddyPage />} />
+                  <Route path="/mock-interview" element={<MockInterviewPage />} />
+                  <Route path="/search-results" element={<SearchResultsPage />} />
+                  <Route path="/digital-notice-board" element={<DigitalNoticeBoardPage />} />
 
-                <Route element={<AuthCheckAdmin />}>
-                  <Route path="/admin/chatbot-qp" element={<ChatbotAdminPage />} />
-                  <Route path="/admin/study-materials" element={<StudyMaterialAdminPage />} />
-                  <Route path="/admin/events" element={<EventAdminPage />} />
-                  <Route path="/admin/courses" element={<CourseAdminPage />} />
-                  <Route path="/admin/subjects" element={<SubjectAdminPage />} />
-                  <Route path="/admin/exam-hall" element={<ExamHallAdminPage />} />
-                  <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
-                  <Route path="/performance-analyzer" element={<StudentPerformanceAnalyzerPage />} />
-                  <Route path="/class-toppers" element={<ClassToppersPage />} />
-                  <Route path="/admin/notifications" element={<NotificationSettingsPage />} />
-                  <Route path="/admin/digital-notice-board" element={<DigitalNoticeBoardAdminPage />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
+                  <Route element={<AuthCheckAdmin />}>
+                    <Route path="/admin/chatbot-qp" element={<ChatbotAdminPage />} />
+                    <Route path="/admin/study-materials" element={<StudyMaterialAdminPage />} />
+                    <Route path="/admin/events" element={<EventAdminPage />} />
+                    <Route path="/admin/courses" element={<CourseAdminPage />} />
+                    <Route path="/admin/subjects" element={<SubjectAdminPage />} />
+                    <Route path="/admin/exam-hall" element={<ExamHallAdminPage />} />
+                    <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
+                    <Route path="/performance-analyzer" element={<StudentPerformanceAnalyzerPage />} />
+                    <Route path="/class-toppers" element={<ClassToppersPage />} />
+                    <Route path="/admin/notifications" element={<NotificationSettingsPage />} />
+                    <Route path="/admin/digital-notice-board" element={<DigitalNoticeBoardAdminPage />} />
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </NotificationProvider>
           </TooltipProvider>
         </QueryClientProvider>
       </div>

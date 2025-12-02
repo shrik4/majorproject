@@ -86,5 +86,43 @@ def delete_notice(id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/notices/latest', methods=['GET'])
+def get_latest_notice():
+    try:
+        # Get the most recent notice
+        latest_notice = notices_collection.find_one(sort=[('createdAt', -1)])
+        
+        if not latest_notice:
+            return jsonify({'timestamp': None, 'count': 0}), 200
+        
+        # Get total count
+        total_count = notices_collection.count_documents({})
+        
+        return jsonify({
+            'timestamp': latest_notice['createdAt'].isoformat() if latest_notice.get('createdAt') else None,
+            'count': total_count,
+            'latestNotice': {
+                '_id': str(latest_notice['_id']),
+                'title': latest_notice['title'],
+                'category': latest_notice['category'],
+                'date': latest_notice['date']
+            }
+        }), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/notices/count', methods=['GET'])
+def get_notice_count():
+    try:
+        category = request.args.get('category')
+        query = {}
+        if category and category != 'All':
+            query['category'] = category
+        
+        count = notices_collection.count_documents(query)
+        return jsonify({'count': count}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, port=8023)

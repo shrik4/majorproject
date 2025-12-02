@@ -2,13 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X, Moon, Sun, User } from 'lucide-react';
+import { Menu, X, Moon, Sun, User, Bell } from 'lucide-react';
+import NotificationBadge from '@/components/NotificationBadge';
+import { useNotifications } from '@/contexts/NotificationContext';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { unreadCount, markAllAsRead } = useNotifications();
 
   const isActive = (path: string) => {
     return location.pathname === path ? 'active' : '';
@@ -42,7 +45,25 @@ const Navbar: React.FC = () => {
             <Link to="/student-upload" className={`nav-link ${isActive('/student-upload')}`}>Student Upload</Link>
             <Link to="/navigation" className={`nav-link ${isActive('/navigation')}`}>Campus Navigation</Link>
             <Link to="/chatbot" className={`nav-link ${isActive('/chatbot')}`}>Campus Assistant</Link>
-            <Link to="/digital-notice-board" className={`nav-link ${isActive('/digital-notice-board')}`}>Notice Board</Link>
+
+            {/* Notice Board with Notification Bell */}
+            <div className="relative">
+              <Link
+                to="/digital-notice-board"
+                className={`nav-link ${isActive('/digital-notice-board')} flex items-center gap-2`}
+                onClick={() => {
+                  if (location.pathname === '/digital-notice-board') {
+                    markAllAsRead();
+                  }
+                }}
+              >
+                <span>Notice Board</span>
+                <div className="relative">
+                  <Bell size={16} className={unreadCount > 0 ? 'text-red-500' : ''} />
+                  <NotificationBadge count={unreadCount} />
+                </div>
+              </Link>
+            </div>
 
             <div className="pl-4 border-l border-gray-200 ml-4 flex items-center space-x-2">
               <Button
@@ -94,12 +115,23 @@ const Navbar: React.FC = () => {
             >
               Campus Navigation
             </Link>
+
+            {/* Notice Board with Notification */}
             <Link
               to="/digital-notice-board"
-              className={`px-3 py-3 rounded-md text-base font-medium transition-colors ${isActive('/digital-notice-board') ? 'text-primary bg-blue-50' : 'text-gray-700 hover:bg-gray-50 hover:text-primary'}`}
-              onClick={() => setIsOpen(false)}
+              className={`px-3 py-3 rounded-md text-base font-medium transition-colors flex items-center justify-between ${isActive('/digital-notice-board') ? 'text-primary bg-blue-50' : 'text-gray-700 hover:bg-gray-50 hover:text-primary'}`}
+              onClick={() => {
+                setIsOpen(false);
+                if (location.pathname === '/digital-notice-board') {
+                  markAllAsRead();
+                }
+              }}
             >
-              Notice Board
+              <span>Notice Board</span>
+              <div className="relative">
+                <Bell size={18} className={unreadCount > 0 ? 'text-red-500' : ''} />
+                <NotificationBadge count={unreadCount} />
+              </div>
             </Link>
 
             <div className="pt-2 mt-2 border-t border-gray-100">
